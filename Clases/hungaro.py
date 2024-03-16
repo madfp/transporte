@@ -1,10 +1,19 @@
 from numpy import array, transpose, copy
 
 """ Metodo principal - Metodo hungaro """
+
+tareas = []
+trabajadores = []
 def MetodoHungaro():
     # inicializamos las variables
-    cantidad_tareas= int(input('Ingrese la cantidad de Tareas: '))
-    cantidad_trabajadores = int(input('Ingrese la cantidad de Trabajadores: '))
+    
+    cantidad_tareas = int(input('>>> Ingrese el número de tareas: '))
+    for i in range(cantidad_tareas):
+        tareas.append(input(f'Ingrese el nombre de la tarea {i+1}: '))
+
+    cantidad_trabajadores = int(input('>>> Ingrese el número de trabajadores: '))
+    for i in range(cantidad_trabajadores):
+        trabajadores.append(input(f'Ingrese el nombre del trabajador {i+1}: '))
 
     matriz_datos = []
 
@@ -14,7 +23,7 @@ def MetodoHungaro():
         datos = []
 
         for j in range(cantidad_tareas):
-            datos.append(float(input(f'Costo unitario de la tarea [{k+1}] del trabajador [{j+1}]:')))
+            datos.append(float(input(f'Costo unitario de la tarea {tareas[k]} del trabajador {trabajadores[j]}:')))
 
         # Después de cargar la lista de datos la anexamos a la matriz de datos
         matriz_datos.append(datos)
@@ -33,10 +42,10 @@ def MetodoHungaro():
     """ Mostrar la matriz resultante """
     print('>>> Matriz de resultados:')
     for k in range(len(matriz_resultado[0])):
-      print(f'\tPuesto {k+1}', end='')
+      print(f'\t{tareas[k]}', end='')
     print('')
     for k, fila in enumerate(matriz_resultado):
-      print(f'Trab {k+1}', end='')
+      print(f'{trabajadores[k]}', end='')
       for valor in fila:
           print(f'\t{valor}', end='\t')
       print('')
