@@ -1,5 +1,3 @@
-from .helpers.Operaciones import esqNoroeste
-from .helpers.Imprimir import mostrar_matriz_resultante, mostrar_matriz
 from .helpers.Validar import lectura
 from .helpers.Validar import REG_NUMBER, REG_FLOAT
 
@@ -33,16 +31,92 @@ def MetodoTransporte() -> None:
         print(f'Ingrese la demanda [{k+1}]:')
         demandas.append(float(lectura(REG_FLOAT)))
     
-    # Mostramos la matriz creada por el usuario
+    """ Mostramos la matriz """
     print('\nMatriz de datos:')
-    mostrar_matriz(matriz=matriz_datos, ofertas=ofertas, demandas=demandas)
+    for k in range(len(matriz_datos[0])):
+        print(f'\tDestino {k+1}', end='')
+    print('\tOferta')
+    for j, fila in enumerate(matriz_datos):
+        for valor in fila:
+            print(f'\t{valor}', end='\t')
+        print(f'\t{ofertas[j]}')
+    print('Demanda ', end='')
+    for valores in demandas:
+        print(f'{valores}', end='\t\t')
+    print('')
 
-    # Obtenemos los resultados por el metodo de la esquina noroeste
-    resultados = esqNoroeste(matriz=matriz_datos, ofertas=ofertas, demandas=demandas)
+    """ Aplicamos el metodo de la esquina noroeste para obtener los resultados"""
+    res = []
+    col_res = []
+    fil_res = []
 
-    # Mostramos los resultados
+    # Recorremos la matriz por cada fila
+    for fila, lista in enumerate(matriz_datos):
+        for columna in range(len(lista)):
+            # Verificamos si no es una fila o columna ya resuelta
+            if(columna not in col_res and fila not in fil_res):
+                # En caso de que la oferta sea mayor que la demanda
+                if(ofertas[fila] > demandas[columna]):
+                    resultado = {
+                        'valor': demandas[columna],
+                        'coordenada': [fila, columna]
+                    }
+                    # Se guarda la columna resuelta incluida en el diccionario
+                    col_res.append(columna)
+                    res.append(resultado)
+
+                    # Se resta el valor de la oferta
+                    ofertas[fila] -= demandas[columna]
+                    demandas[columna] = 0 # se anula el valo
+                
+                elif(demandas[columna] > ofertas[fila]):
+                    # En caso de que la demanda sea mayor que la oferta
+                    resultado = {
+                        'valor': ofertas[fila],
+                        'coordenada': [fila, columna]
+                    }
+                    # Guardamos la fila como terminada y anexamos el resultado
+                    fil_res.append(fila)
+                    res.append(resultado)
+
+                    # Restamos el valor de la demanda con el de la oferta y ponemos en 0 la oferta
+                    demandas[columna] -= ofertas[fila]
+                    ofertas[fila] = 0
+                
+                # Caso en el que la oferta y demanda son iguales
+                else:
+                    # Guardamos cualquier dato de oferta o demanda
+                    resultado = {
+                        'valor': ofertas[fila],
+                        'coordenada': [fila, columna]
+                    }
+                    # Guardamos la fila y columna como terminada
+                    fil_res.append(fila)
+                    col_res.append(columna)
+
+                    # Guardamos el resultado
+                    res.append(resultado)
+
+                    # Ponemos en 0 la oferta y demanda
+                    ofertas[fila] = 0
+                    demandas[columna] = 0
+    resultados = res
+
+    """ Mostramos los resultados """
     print('\nResultados:')
-    mostrar_matriz_resultante(resultados=resultados, ofertas=len(ofertas), demandas=len(demandas))
+    for k in range(len(demandas)):
+        print(f'\tDestino {k+1}', end='')
+    print('')
+    for k in range(len(ofertas)):
+        for j in range(len(demandas)):
+            encontrado = False
+            for resultado in resultados:
+                if(resultado['coordenada'] == [k,j]):
+                    print(f'\t{resultado['valor']}', end='\t')
+                    encontrado = True
+            if not encontrado:
+                print(f'\tNone', end='\t')
+        print('')
     
     # Calculamos y mostramos los costos segun la lista de resultados
     print('\nCostos:')
