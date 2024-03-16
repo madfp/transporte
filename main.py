@@ -1,5 +1,5 @@
-from Clases.transporte import seleccion_transporte 
-from Clases.hungaro import seleccion_hungaro
+from Clases.transporte import MetodoTransporte
+from Clases.hungaro import MetodoHungaro
 
 def menu() -> None:
   while(True):
@@ -14,15 +14,14 @@ def menu() -> None:
       except: 
           print("\n>>> Ingresar datos necesarios...\n")
         
-    # Acceder al menu de la opcion 
-    if opcion == 1: # Carga categoria
-        print(seleccion_transporte())
-    elif opcion == 2: # Agrega categoria
-        print(seleccion_hungaro())
+    # Filtrar la opcion del usuario 
+    if opcion == 1:
+        print(MetodoTransporte())
+    elif opcion == 2:
+        print(MetodoHungaro())
     else:
         print("\n>>> Ha salido del sistema...")
         break
 
-# Correr la funcion principal
 if __name__ == "__main__":
     menu()
