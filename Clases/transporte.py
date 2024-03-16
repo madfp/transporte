@@ -1,7 +1,10 @@
+""" Metodo de Transporte"""
 
+#Inicializamos variables 
 origenes = []
 destinos = []
 
+#Función que calcula el método de transporte
 def MetodoTransporte() -> None:
     # obtenemos la cantidad de destinos y origenes
     cantidad_origenes = int(input('>>> Ingrese el número de orígenes: '))

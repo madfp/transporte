@@ -1,12 +1,14 @@
 from numpy import array, transpose, copy
 
-""" Metodo principal - Metodo hungaro """
+""" Metodo de Asignación - Metodo Hungaro """
 
+# inicializamos las variables
 tareas = []
 trabajadores = []
+
+#Función que calcula el método hungaro
 def MetodoHungaro():
-    # inicializamos las variables
-    
+
     cantidad_tareas = int(input('>>> Ingrese el número de tareas: '))
     for i in range(cantidad_tareas):
         tareas.append(input(f'Ingrese el nombre de la tarea {i+1}: '))
@@ -19,6 +21,7 @@ def MetodoHungaro():
 
     # Procedemos a la carga inicial de datos
     for k in range(cantidad_trabajadores):
+        
         # En cada iteración creamos una lista de valores
         datos = []
 

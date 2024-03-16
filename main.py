@@ -1,6 +1,12 @@
 from Clases.transporte import MetodoTransporte
 from Clases.hungaro import MetodoHungaro
 
+'''
+Parcial IV - Problema de Asignación 
+Elaborado por: Giancarlos Hernaiz y Marco De Freitas
+'''
+
+#Menú principal de nuestra aplicación
 def menu() -> None:
   while(True):
     print("=========== Menu ===========\n1.- Problema de Transporte\n2.- Problema de Asignación\n3.- Salir")
