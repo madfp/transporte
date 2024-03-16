@@ -6,6 +6,8 @@ destinos = []
 
 #Función que calcula el método de transporte
 def MetodoTransporte() -> None:
+    origenes.clear()
+    destinos.clear()
     # obtenemos la cantidad de destinos y origenes
     cantidad_origenes = int(input('>>> Ingrese el número de orígenes: '))
     for i in range(cantidad_origenes):

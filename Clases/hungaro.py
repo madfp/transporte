@@ -9,6 +9,9 @@ trabajadores = []
 #Función que calcula el método hungaro
 def MetodoHungaro():
 
+    tareas.clear()
+    trabajadores.clear()
+
     cantidad_tareas = int(input('>>> Ingrese el número de tareas: '))
     for i in range(cantidad_tareas):
         tareas.append(input(f'Ingrese el nombre de la tarea {i+1}: '))
