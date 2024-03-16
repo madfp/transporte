@@ -1,13 +1,10 @@
-from .helpers.Validar import REG_NUMBER, REG_FLOAT, lectura
 from numpy import array, transpose, copy
 
 """ Metodo principal - Metodo hungaro """
 def MetodoHungaro():
     # inicializamos las variables
-    print('Ingrese la cantidad de Tareas:')
-    cantidad_tareas= int(lectura(REG_NUMBER))
-    print('Ingrese la cantidad de Trabajadores:')
-    cantidad_trabajadores = int(lectura(REG_NUMBER))
+    cantidad_tareas= int(input('Ingrese la cantidad de Tareas: '))
+    cantidad_trabajadores = int(input('Ingrese la cantidad de Trabajadores: '))
 
     matriz_datos = []
 
@@ -17,8 +14,7 @@ def MetodoHungaro():
         datos = []
 
         for j in range(cantidad_tareas):
-            print(f'Costo unitario de la tarea [{k+1}] del trabajador [{j+1}]:')
-            datos.append(float(lectura(REG_FLOAT)))
+            datos.append(float(input(f'Costo unitario de la tarea [{k+1}] del trabajador [{j+1}]:')))
 
         # Después de cargar la lista de datos la anexamos a la matriz de datos
         matriz_datos.append(datos)

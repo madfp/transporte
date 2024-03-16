@@ -1,15 +1,19 @@
-from .helpers.Validar import lectura
-from .helpers.Validar import REG_NUMBER, REG_FLOAT
+
+origenes = []
+destinos = []
 
 def MetodoTransporte() -> None:
     # obtenemos la cantidad de destinos y origenes
-    print('Ingrese la cantidad de destinos:')
-    cantidad_destinos = int(lectura(REG_NUMBER))
-    print('Ingrese la cantidad de origenes:')
-    cantidad_origenes = int(lectura(REG_NUMBER))
+    cantidad_origenes = int(input('>>> Ingrese el número de orígenes: '))
+    for i in range(cantidad_origenes):
+        origenes.append(input(f'Ingrese el nombre del origen {i+1}: '))
 
+    cantidad_destinos = int(input('>>> Ingrese el número de destinos: '))
+    for i in range(cantidad_destinos):
+        destinos.append(input(f'Ingrese el nombre del destino {i+1}: '))
+        
     # Inicializamos las variables
-    matriz_datos = []
+    matriz_costos = []
     ofertas = []
     demandas = []
 
@@ -17,26 +21,23 @@ def MetodoTransporte() -> None:
         datos = []
 
         for j in range(cantidad_destinos):
-            print(f'Costo unitario del origen [{k+1}] hacia el destino [{j+1}]:')
-            datos.append(float(lectura(REG_FLOAT)))
+            datos.append(float(input(f'Costo unitario de {origenes[k]} hacia {destinos[j]}: ')))
 
         # Después de cargar la lista de datos la anexamos a la matriz de datos
-        matriz_datos.append(datos)
+        matriz_costos.append(datos)
 
         # Pedimos la oferta de la fila
-        print(f'Oferta del origen [{k+1}]:')
-        ofertas.append(float(lectura(REG_FLOAT)))
+        ofertas.append(float(input(f'Oferta de {origenes[k]}:')))
 
     for k in range(cantidad_destinos):
-        print(f'Ingrese la demanda [{k+1}]:')
-        demandas.append(float(lectura(REG_FLOAT)))
+        demandas.append(float(input(f'Ingrese la demanda [{k+1}]:')))
     
     """ Mostramos la matriz """
     print('\nMatriz de datos:')
-    for k in range(len(matriz_datos[0])):
-        print(f'\tDestino {k+1}', end='')
+    for k in range(len(matriz_costos[0])):
+        print(f'\t{destinos[k]}', end='')
     print('\tOferta')
-    for j, fila in enumerate(matriz_datos):
+    for j, fila in enumerate(matriz_costos):
         for valor in fila:
             print(f'\t{valor}', end='\t')
         print(f'\t{ofertas[j]}')
@@ -51,7 +52,7 @@ def MetodoTransporte() -> None:
     fil_res = []
 
     # Recorremos la matriz por cada fila
-    for fila, lista in enumerate(matriz_datos):
+    for fila, lista in enumerate(matriz_costos):
         for columna in range(len(lista)):
             # Verificamos si no es una fila o columna ya resuelta
             if(columna not in col_res and fila not in fil_res):
@@ -105,14 +106,14 @@ def MetodoTransporte() -> None:
     """ Mostramos los resultados """
     print('\nResultados:')
     for k in range(len(demandas)):
-        print(f'\tDestino {k+1}', end='')
+        print(f'\t{destinos[k]}', end='')
     print('')
     for k in range(len(ofertas)):
         for j in range(len(demandas)):
             encontrado = False
             for resultado in resultados:
                 if(resultado['coordenada'] == [k,j]):
-                    print(f'\t{resultado['valor']}', end='\t')
+                    print(f'\t{resultado["valor"]}', end='\t')
                     encontrado = True
             if not encontrado:
                 print(f'\tNone', end='\t')
@@ -127,7 +128,7 @@ def MetodoTransporte() -> None:
         # Extraemos los valores importantes del diccionario
         valor = resultado['valor']
         coordenada = resultado['coordenada']
-        costo = matriz_datos[coordenada[0]][coordenada[1]]
+        costo = matriz_costos[coordenada[0]][coordenada[1]]
         costo_total += valor*costo
         
         print(f'\t{valor}\t\t{costo}\t{valor*costo}')
